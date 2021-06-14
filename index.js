@@ -13,11 +13,9 @@ let allWagesFor = function () {
     let eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
     })
-
     let payable = eligibleDates.reduce(function (memo, d) {
         return memo + wagesEarnedOnDate.call(this, d)
     }.bind(this), 0) // <== Hm, why did we need to add bind() there? We'll discuss soon!
-
     return payable
 }
 
@@ -40,25 +38,21 @@ let createEmployeeRecord = function(row){
 
  let createTimeInEvent = function(dateStamp){
      let [date, hour] = dateStamp.split(' ')
-
      this.timeInEvents.push({
          type: "TimeIn",
          hour: parseInt(hour, 10),
          date,
      })
-
      return this
  }
 
  let createTimeOutEvent = function(dateStamp){
      let [date, hour] = dateStamp.split(' ')
-
      this.timeOutEvents.push({
          type: "TimeOut",
          hour: parseInt(hour, 10),
          date,
      })
-
      return this
  }
 
@@ -66,11 +60,9 @@ let createEmployeeRecord = function(row){
      let inEvent = this.timeInEvents.find(function(e){
          return e.date === soughtDate
      })
-
      let outEvent = this.timeOutEvents.find(function(e){
          return e.date === soughtDate
      })
-
      return (outEvent.hour - inEvent.hour) / 100
  }
 
